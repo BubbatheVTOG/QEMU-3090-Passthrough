@@ -22,6 +22,9 @@ Set up a Windows VM with a passed-through dedicated GPU (NVIDIA RTX 3090), captu
 4. **[04-audio-attempts.md](04-audio-attempts.md)** — Every audio approach tried, why each failed, and lessons learned
 5. **[05-methodology.md](05-methodology.md)** — Snapshot-based rollback, guest agent remote management, incremental change strategy
 6. **[06-remaining-issues.md](06-remaining-issues.md)** — What's still broken and proposed next steps
+7. **[07-windows-guest-setup.md](07-windows-guest-setup.md)** — Everything done inside Windows: OOBE bypass, guest agent, LG host, VDD, resolution script, auto-login, Scream, SPICE config
+8. **[08-vm-xml-reference.md](08-vm-xml-reference.md)** — Complete annotated VM XML and design decisions
+9. **[09-remote-command-execution.md](09-remote-command-execution.md)** — Running commands in the VM headlessly via guest agent, what works vs session 0 limitations
 
 ## Summary of Outcomes
 
