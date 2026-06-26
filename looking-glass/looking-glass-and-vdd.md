@@ -50,6 +50,7 @@ Since no physical dummy plug was available, we used **VDD (Virtual Display Drive
 
 - Used `ChangeDisplaySettingsEx` Win32 API to programmatically set the VDD display to 2560x1440@144Hz
 - This must be called from an **interactive user session**, NOT from a service or guest agent (see below)
+- The full PowerShell script is documented in [windows-guest-setup.md](../setup/windows-guest-setup.md)
 
 ## What Didn't Work / Gotchas
 

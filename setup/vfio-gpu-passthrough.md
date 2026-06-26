@@ -51,8 +51,12 @@ Key XML elements for the passthrough:
 
 ## What Didn't Work / Gotchas
 
-- **NVIDIA driver error code 43** was never encountered because `host-passthrough` CPU mode and the Hyper-V `vendor_id` spoofing were configured correctly from the start. If you hit code 43, check the Hyper-V vendor ID setting.
+- **NVIDIA driver error code 43** was never encountered. `host-passthrough` CPU mode alone was sufficient — it hides the hypervisor signature so the NVIDIA driver sees a real CPU. No `<vendor_id>` spoofing under `<hyperv>` was needed.
 - **The GPU audio controller must be passed through alongside the GPU.** Initially only the VGA function was passed through; the HDMI audio function must also be in its own `<hostdev>` entry or Windows won't properly initialize the GPU.
+
+### Host-Side Boot Configuration
+
+The VFIO module loading, udev rule, and toggle script are covered in [host-boot-configuration.md](host-boot-configuration.md). That doc includes the full `mkinitcpio.conf` changes, the udev rule that targets the GPU by PCI address, and the `toggle-gpu` script that switches between VM mode and host mode.
 
 ## Lessons
 
