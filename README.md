@@ -14,25 +14,54 @@ Set up a Windows VM with a passed-through dedicated GPU (NVIDIA RTX 3090), captu
 - **NVIDIA GPU requires an active display output** for Looking Glass host to capture its framebuffer. With no monitor and no VDD active, the host service logs "Failed to locate a valid output device."
 - **SPICE audio channels conflict with Looking Glass client** — the LG client connects RECORD and PLAYBACK SPICE channels even when `spice:audio=no` is set, causing a "Protocol error. The server asked us to reconnect an already connected channel (RECORD)" crash.
 
-## Documents
+## Current Status
 
-1. **[01-vfio-gpu-passthrough.md](01-vfio-gpu-passthrough.md)** — VFIO setup, IOMMU, what worked
-2. **[02-looking-glass-and-vdd.md](02-looking-glass-and-vdd.md)** — Looking Glass host/client, VDD virtual display, the chicken-and-egg problem, resolution switching
-3. **[03-mouse-pointer-fix.md](03-mouse-pointer-fix.md)** — Mouse misalignment and the virtio-vga tradeoff
-4. **[04-audio-attempts.md](04-audio-attempts.md)** — Every audio approach tried, why each failed, and lessons learned
-5. **[05-methodology.md](05-methodology.md)** — Snapshot-based rollback, guest agent remote management, incremental change strategy
-6. **[06-remaining-issues.md](06-remaining-issues.md)** — What's still broken and proposed next steps
-7. **[07-windows-guest-setup.md](07-windows-guest-setup.md)** — Everything done inside Windows: OOBE bypass, guest agent, LG host, VDD, resolution script, auto-login, Scream, SPICE config
-8. **[08-vm-xml-reference.md](08-vm-xml-reference.md)** — Complete annotated VM XML and design decisions
-9. **[09-remote-command-execution.md](09-remote-command-execution.md)** — Running commands in the VM headlessly via guest agent, what works vs session 0 limitations
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Host VFIO Configuration | Working | Toggle script switches GPU between VM/host modes |
+| GPU Passthrough (VFIO) | Working | RTX 3090 bound to `vfio-pci` via udev rule |
+| Looking Glass Video | Working | 2560x1440@144Hz via VDD virtual display |
+| Mouse/Pointer Input | Working | SPICE tablet input, no misalignment |
+| Audio | **Not working** | See [audio/audio-attempts.md](audio/audio-attempts.md) |
+| Boot-time Display | Partial | VDD requires interactive login to activate (chicken-and-egg) |
 
-## Summary of Outcomes
+## Document Index
 
-| Component | Outcome | Key Lesson |
-|-----------|---------|------------|
-| GPU Passthrough | Worked | Standard VFIO bind; isolate GPU in its own IOMMU group |
-| Looking Glass Video | Worked | VDD provides the virtual display NVIDIA needs to render |
-| VDD Resolution | Worked (with caveat) | `ChangeDisplaySettingsEx` requires interactive session, not guest agent |
-| Mouse Input | Worked | Removing virtio-vga (`<model type='none'/>`) fixed misalignment |
-| Audio | Failed | Every approach hit a wall — see audio doc |
-| Boot-time Display | Partial | VDD only activates after interactive login (chicken-and-egg) |
+### Setup
+- **[setup/host-boot-configuration.md](setup/host-boot-configuration.md)** — mkinitcpio.conf changes, udev rules for VFIO binding, toggle-gpu script to switch GPU between VM and host modes
+- **[setup/vfio-gpu-passthrough.md](setup/vfio-gpu-passthrough.md)** — VFIO setup, IOMMU, libvirt XML for hostdev passthrough, what worked
+- **[setup/vm-xml-reference.md](setup/vm-xml-reference.md)** — Complete annotated VM XML with design decision table and backing chain
+- **[setup/windows-guest-setup.md](setup/windows-guest-setup.md)** — Everything done inside Windows: OOBE bypass, guest agent, LG host, VDD, resolution script, auto-login, Scream, SPICE config
+
+### Looking Glass
+- **[looking-glass/looking-glass-and-vdd.md](looking-glass/looking-glass-and-vdd.md)** — Looking Glass host/client, VDD virtual display, the chicken-and-egg problem, resolution switching
+- **[looking-glass/mouse-pointer-fix.md](looking-glass/mouse-pointer-fix.md)** — Mouse misalignment and the virtio-vga tradeoff
+
+### Audio
+- **[audio/audio-attempts.md](audio/audio-attempts.md)** — Every audio approach tried, why each failed, and lessons learned
+
+### Operations
+- **[operations/methodology.md](operations/methodology.md)** — Snapshot-based rollback, guest agent remote management, incremental change strategy
+- **[operations/remote-command-execution.md](operations/remote-command-execution.md)** — Running commands in the VM headlessly via guest agent, what works vs session 0 limitations
+
+### Reference
+- **[resources.md](resources.md)** — Links to external documentation, tools, and community resources
+- **[remaining-issues.md](remaining-issues.md)** — What's still broken and proposed next steps
+
+## Quick Start
+
+```bash
+# 1. Set GPU to VM mode (requires reboot)
+sudo toggle-gpu vm
+
+# 2. Start the VM
+virsh start win11
+
+# 3. Wait for auto-login + resolution script (30-60 seconds)
+
+# 4. Run Looking Glass client
+looking-glass-client
+
+# 5. To free GPU for host use later
+sudo toggle-gpu host
+```

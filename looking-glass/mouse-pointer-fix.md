@@ -31,7 +31,7 @@ With `<model type='none'/>`, there is no SPICE display fallback. If Looking Glas
 - If VDD fails to load, the VM boots to a black screen
 - Windows Recovery Environment (WinRE) has no display
 
-**Mitigation:** Keep snapshots of known-working states so you can roll back if the VM becomes inaccessible. See [methodology](05-methodology.md).
+**Mitigation:** Keep snapshots of known-working states so you can roll back if the VM becomes inaccessible. See [methodology](../operations/methodology.md).
 
 ### virtio-vga as Secondary Display
 

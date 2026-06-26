@@ -48,7 +48,7 @@ VDD only activates after Windows loads the driver and an interactive session sta
 ### Potential Solutions
 
 - **Hardware dummy plug:** Would provide a display at all times, including boot. The cleanest solution but requires hardware.
-- **Keep virtio-vga as boot display, switch to VDD after login:** virtio-vga provides a display during boot; a startup script switches the primary display to VDD after login. Risk: re-introduces the mouse misalignment issue (see [mouse fix](03-mouse-pointer-fix.md)) unless virtio-vga is disabled after the switch.
+- **Keep virtio-vga as boot display, switch to VDD after login:** virtio-vga provides a display during boot; a startup script switches the primary display to VDD after login. Risk: re-introduces the mouse misalignment issue (see [mouse fix](looking-glass/mouse-pointer-fix.md)) unless virtio-vga is disabled after the switch.
 - **VDD with boot-start driver:** If VDD can be configured to load as a boot-start driver (before user login), it could provide a display earlier. Not tested.
 
 ## 3. SPICE Audio Channel Conflict (Unresolved)

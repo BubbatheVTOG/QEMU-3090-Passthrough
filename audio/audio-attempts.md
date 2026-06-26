@@ -178,7 +178,7 @@ We rolled back via snapshot. The failure was likely due to the conflated SPICE r
 
 ### Lesson
 
-**Never conflate multiple changes.** When something breaks, you need to know which change caused it. Make one change at a time, snapshot, test, then make the next change. See [methodology](05-methodology.md).
+**Never conflate multiple changes.** When something breaks, you need to know which change caused it. Make one change at a time, snapshot, test, then make the next change. See [methodology](../operations/methodology.md).
 
 **This is the most promising untested approach.** USB audio passthrough should work in principle — it's a well-supported QEMU feature. It just needs to be tested properly, with only the USB device added and nothing else changed.
 

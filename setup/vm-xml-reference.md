@@ -175,7 +175,7 @@ The complete libvirt VM XML for the working configuration. This is the final sta
 | `machine` | `pc-q35-11.0` | Q35 required for PCIe passthrough |
 | `firmware` | UEFI + Secure Boot | Win11 requirement + NVIDIA driver compatibility |
 | `<cpu mode>` | `host-passthrough` | Prevents NVIDIA error code 43 |
-| `<video model>` | `none` | Fixes mouse misalignment (see [mouse fix](03-mouse-pointer-fix.md)) |
+| `<video model>` | `none` | Fixes mouse misalignment (see [mouse fix](../looking-glass/mouse-pointer-fix.md)) |
 | `<graphics type>` | `spice` | Needed for LG input channel, not for display |
 | `<audio type>` | `none` | Prevents QEMU audio backend conflicts |
 | `shmem looking-glass` | 64MB | Framebuffer size for 2560x1440 |

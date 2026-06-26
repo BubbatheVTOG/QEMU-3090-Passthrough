@@ -36,7 +36,7 @@ Since no physical dummy plug was available, we used **VDD (Virtual Display Drive
   [spice]
   audio=no
   ```
-- The `spice:audio=no` setting was critical — see [audio attempts](04-audio-attempts.md) for why
+- The `spice:audio=no` setting was critical — see [audio attempts](../audio/audio-attempts.md) for why
 - Client connects to `/dev/shm/looking-glass` and renders the framebuffer with very low latency
 
 ### VDD (Virtual Display Driver)

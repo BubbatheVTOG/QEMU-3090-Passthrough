@@ -98,7 +98,7 @@ This is insecure (plaintext password in registry) but necessary for headless VM 
 5. **Test** (boot VM, verify the change had the intended effect)
 6. **If working:** snapshot the working state, move to next change
 7. **If not working:** diagnose, try to fix, or revert and try a different approach
-8. **Document** what was tried and what happened (see [audio attempts](04-audio-attempts.md))
+8. **Document** what was tried and what happened (see [audio attempts](../audio/audio-attempts.md))
 
 ### Why One Change at a Time
 

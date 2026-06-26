@@ -91,7 +91,7 @@ virsh qemu-agent-command win11 '{
 
 ### Critical Limitation
 
-The guest agent runs in **session 0** (non-interactive service session). Display APIs (`ChangeDisplaySettingsEx`, `EnumDisplayDevices`) do NOT work from session 0. See [methodology](05-methodology.md) for the auto-login workaround.
+The guest agent runs in **session 0** (non-interactive service session). Display APIs (`ChangeDisplaySettingsEx`, `EnumDisplayDevices`) do NOT work from session 0. See [methodology](../operations/methodology.md) for the auto-login workaround.
 
 ---
 
@@ -293,7 +293,7 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v SetVddResolution
 
 ## 5. Scream Audio Driver (Installed but Not Working)
 
-Documented here for reference. See [audio attempts](04-audio-attempts.md) for why this didn't work.
+Documented here for reference. See [audio attempts](../audio/audio-attempts.md) for why this didn't work.
 
 ### Installation
 
@@ -342,7 +342,7 @@ Looking Glass uses the SPICE channel for mouse/keyboard input. SPICE must be con
 
 ### Audio Conflict
 
-The SPICE server always advertises audio channels (PLAYBACK, RECORD). The Looking Glass client connects these channels even with `spice:audio=no`, causing crashes. This is an unresolved issue — see [remaining issues](06-remaining-issues.md).
+The SPICE server always advertises audio channels (PLAYBACK, RECORD). The Looking Glass client connects these channels even with `spice:audio=no`, causing crashes. This is an unresolved issue — see [remaining issues](../remaining-issues.md).
 
 ### Looking Glass Client Config
 
@@ -365,6 +365,6 @@ The virtual video device must be set to `none` once VDD is confirmed working, to
 </video>
 ```
 
-See [mouse fix](03-mouse-pointer-fix.md) for the reasoning.
+See [mouse fix](../looking-glass/mouse-pointer-fix.md) for the reasoning.
 
 **Order of operations:** Get VDD working FIRST, then set video to `none`. Setting video to none before VDD works leaves you with no display at all.
